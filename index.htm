@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        position: relative;
+    }
+    #input-phone {
+        padding-left: 30px;
+    }
+    .container span {
+        position: absolute;
+        left: 5px;
+        top: 2px;
+    }
+</style>
+<body>
+    <div class="container">
+        <input id="input-phone" type="text" maxlength="11"/>
+        <span>+44</span>
+    </div>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script defer>
+let inputValue = ['_', '_', '_', '_', '_', '_', '_', '_', '_', '_'];
+var input = $("#input-phone");
+$("#input-phone").hover( function() {
+    input[0].selectionStart = input[0].selectionEnd = (10 - arrayChecker(inputValue));
+    $( this ).val( convertToString(inputValue));
+  }
+);
+$("#input-phone").focus( function() {
+    input[0].selectionStart = input[0].selectionEnd = (10 - arrayChecker(inputValue));
+    if( input[0].selectionStart >= 5 ) {
+        input[0].selectionStart = input[0].selectionEnd = (11 - arrayChecker(inputValue));
+    }
+  }
+);
+
+$("#input-phone").on("keypress", function (e) {
+    if(e.keyCode >= 48 && e.keyCode <= 57 ) {
+        for (let i = 0; i < inputValue.length; i++) {
+            if (inputValue[i] == '_') {
+                inputValue[i] = String.fromCharCode(e.keyCode);
+                break;
+            }
+        }
+        $( "#input-phone" ).val( convertToString(inputValue));
+        input[0].selectionStart = input[0].selectionEnd = (10 - arrayChecker(inputValue));
+        if( input[0].selectionStart >= 5 ) {
+            input[0].selectionStart = input[0].selectionEnd = (11 - arrayChecker(inputValue));
+        }
+    }
+});
+
+$("#input-phone").on("keydown", function (e) {
+    let inputStr = $("#input-phone").val();
+    if(e.keyCode == 46 || e.keyCode <= 8 ) {
+        if(inputStr.length <= 4) {
+            $( "#input-phone" ).val()        }
+        for(let i = 4; i < inputStr.length; i++) {
+
+        }
+    }
+})
+
+$("#input-phone").click(function () {
+    input[0].selectionStart = input[0].selectionEnd = (10 - arrayChecker(inputValue));
+    if( input[0].selectionStart >= 5 ) {
+        input[0].selectionStart = input[0].selectionEnd = (11 - arrayChecker(inputValue));
+    }
+});
+
+
+function convertToString(array) {
+    let newString = '';
+    array.forEach((element, i) => {
+        if(i === 4) {
+            newString = newString +' '+ element;
+        }else {
+          newString = newString + element;
+        }
+    });
+    return newString;
+}
+
+function arrayChecker(array) {
+    let occurences = 0;
+    array.forEach((element, i) => {
+        if(element == '_') {
+            occurences++;
+        }
+    });
+    input[0].selectionStart 
+    return occurences;
+}
+</script>
